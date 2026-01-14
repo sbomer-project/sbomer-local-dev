@@ -42,5 +42,4 @@ bash ./tekton-tasks/apply-syft-taskrun-to-minikube.sh
 
 echo "--- Minikube Setup Done! ---"
 
-echo "Local setup complete and now exposing the Minikube cluster to the host. Please don't close this window and run ./hack/run-compose-with-local-build.sh on another terminal"
-kubectl proxy --port=8001 --address='0.0.0.0' --accept-hosts='^.*$'
+echo "Local setup is now complete. Please run ./hack/run-helm-with-local-build.sh from an SBOMer component in order to build and inject it into sbomer-platform and install the system as helm chart for testing.
