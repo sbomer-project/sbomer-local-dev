@@ -42,4 +42,4 @@ bash ./tekton-tasks/apply-syft-taskrun-to-minikube.sh
 
 echo "--- Minikube Setup Done! ---"
 
-echo "Local setup is now complete. Please run ./hack/run-helm-with-local-build.sh from an SBOMer component in order to build and inject it into sbomer-platform and install the system as helm chart for testing.
+echo "Local setup is now complete. Please run ./hack/run-helm-with-local-build.sh from an SBOMer component in order to build and inject it into sbomer-platform and install the system as helm chart for testing."
