@@ -7,7 +7,8 @@ PROFILE="sbomer"
 
 echo "--- Starting Minikube (Profile: sbomer)"
 # 'start' will create the cluster if it doesn't exist, or start it if it's stopped.
-minikube start -p $PROFILE --addons=ingress --driver=podman
+# Using docker driver for better image registry compatibility
+minikube start -p $PROFILE --addons=ingress --driver=podman --dns-proxy=true
 
 # Ensure kubectl context is set to this cluster
 minikube profile $PROFILE
@@ -18,11 +19,19 @@ sleep 15
 echo "--- Installing Tekton Pipelines & Dashboard ---"
 # Install Pipelines
 kubectl apply --filename https://storage.googleapis.com/tekton-releases/pipeline/latest/release.yaml
+
 # Install Dashboard
 kubectl apply --filename https://infra.tekton.dev/tekton-releases/dashboard/latest/release.yaml
 
 echo "Waiting for Tekton to be ready..."
 sleep 20
+
+echo "--- Installing Kueue v0.17.1 ---"
+# Install Kueue for job queuing and resource management
+kubectl apply --server-side -f https://github.com/kubernetes-sigs/kueue/releases/download/v0.17.1/manifests.yaml
+
+echo "Waiting for Kueue to be ready..."
+sleep 15
 
 echo "--- Creating Dependencies (Secret & SA) ---"
 # Create 'sbomer-storage-secret'
